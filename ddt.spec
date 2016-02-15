@@ -4,7 +4,7 @@
 #
 Name     : ddt
 Version  : 1.0.1
-Release  : 3
+Release  : 4
 URL      : https://pypi.python.org/packages/source/d/ddt/ddt-1.0.1.tar.gz
 Source0  : https://pypi.python.org/packages/source/d/ddt/ddt-1.0.1.tar.gz
 Summary  : Data-Driven/Decorated Tests

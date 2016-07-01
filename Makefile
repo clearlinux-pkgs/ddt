@@ -1,5 +1,5 @@
 PKG_NAME := ddt
-URL := https://pypi.python.org/packages/source/d/ddt/ddt-1.0.1.tar.gz
+URL := http://pypi.debian.net/ddt/ddt-1.1.0.tar.gz
 ARCHIVES :=
 
 include ../common/Makefile.common

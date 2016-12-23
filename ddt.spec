@@ -4,7 +4,7 @@
 #
 Name     : ddt
 Version  : 1.1.1
-Release  : 10
+Release  : 11
 URL      : http://pypi.debian.net/ddt/ddt-1.1.1.tar.gz
 Source0  : http://pypi.debian.net/ddt/ddt-1.1.1.tar.gz
 Summary  : Data-Driven/Decorated Tests

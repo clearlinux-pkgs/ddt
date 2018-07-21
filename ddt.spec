@@ -4,7 +4,7 @@
 #
 Name     : ddt
 Version  : 1.2.0
-Release  : 19
+Release  : 20
 URL      : http://pypi.debian.net/ddt/ddt-1.2.0.tar.gz
 Source0  : http://pypi.debian.net/ddt/ddt-1.2.0.tar.gz
 Summary  : Data-Driven/Decorated Tests
@@ -61,7 +61,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1532211405
+export SOURCE_DATE_EPOCH=1532217305
 python3 setup.py build -b py3
 
 %install

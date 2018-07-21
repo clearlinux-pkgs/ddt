@@ -4,16 +4,18 @@
 #
 Name     : ddt
 Version  : 1.1.1
-Release  : 15
+Release  : 16
 URL      : http://pypi.debian.net/ddt/ddt-1.1.1.tar.gz
 Source0  : http://pypi.debian.net/ddt/ddt-1.1.1.tar.gz
 Summary  : Data-Driven/Decorated Tests
 Group    : Development/Tools
 License  : MIT
+Requires: ddt-python3
+Requires: ddt-license
 Requires: ddt-python
+BuildRequires : buildreq-distutils3
 BuildRequires : pbr
 BuildRequires : pip
-BuildRequires : python-dev
 BuildRequires : python3-dev
 BuildRequires : setuptools
 
@@ -25,12 +27,30 @@ BuildRequires : setuptools
 [![Version](https://img.shields.io/pypi/v/ddt.svg)](https://pypi.python.org/pypi/ddt)
 [![Downloads](https://img.shields.io/pypi/dm/ddt.svg)](https://pypi.python.org/pypi/ddt)
 
+%package license
+Summary: license components for the ddt package.
+Group: Default
+
+%description license
+license components for the ddt package.
+
+
 %package python
 Summary: python components for the ddt package.
 Group: Default
+Requires: ddt-python3
 
 %description python
 python components for the ddt package.
+
+
+%package python3
+Summary: python3 components for the ddt package.
+Group: Default
+Requires: python3-core
+
+%description python3
+python3 components for the ddt package.
 
 
 %prep
@@ -41,15 +61,14 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1503086885
-python2 setup.py build -b py2
+export SOURCE_DATE_EPOCH=1532203411
 python3 setup.py build -b py3
 
 %install
-export SOURCE_DATE_EPOCH=1503086885
 rm -rf %{buildroot}
-python2 -tt setup.py build -b py2 install --root=%{buildroot} --force
-python3 -tt setup.py build -b py3 install --root=%{buildroot} --force
+mkdir -p %{buildroot}/usr/share/doc/ddt
+cp LICENSE.md %{buildroot}/usr/share/doc/ddt/LICENSE.md
+python3 -tt setup.py build -b py3 install --root=%{buildroot}
 echo ----[ mark ]----
 cat %{buildroot}/usr/lib/python3*/site-packages/*/requires.txt || :
 echo ----[ mark ]----
@@ -57,7 +76,13 @@ echo ----[ mark ]----
 %files
 %defattr(-,root,root,-)
 
+%files license
+%defattr(-,root,root,-)
+/usr/share/doc/ddt/LICENSE.md
+
 %files python
 %defattr(-,root,root,-)
-/usr/lib/python2*/*
+
+%files python3
+%defattr(-,root,root,-)
 /usr/lib/python3*/*

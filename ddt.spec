@@ -4,20 +4,16 @@
 #
 Name     : ddt
 Version  : 1.2.0
-Release  : 25
+Release  : 26
 URL      : http://pypi.debian.net/ddt/ddt-1.2.0.tar.gz
 Source0  : http://pypi.debian.net/ddt/ddt-1.2.0.tar.gz
-Summary  : Data-Driven/Decorated Tests
+Summary  : platform-agnostic video game programming tools
 Group    : Development/Tools
 License  : MIT
-Requires: ddt-python3
-Requires: ddt-license
-Requires: ddt-python
+Requires: ddt-license = %{version}-%{release}
+Requires: ddt-python = %{version}-%{release}
+Requires: ddt-python3 = %{version}-%{release}
 BuildRequires : buildreq-distutils3
-BuildRequires : pbr
-BuildRequires : pip
-BuildRequires : python3-dev
-BuildRequires : setuptools
 
 %description
 [![Build Status](https://travis-ci.org/txels/ddt.svg)](https://travis-ci.org/txels/ddt)
@@ -38,7 +34,7 @@ license components for the ddt package.
 %package python
 Summary: python components for the ddt package.
 Group: Default
-Requires: ddt-python3
+Requires: ddt-python3 = %{version}-%{release}
 
 %description python
 python components for the ddt package.
@@ -48,6 +44,7 @@ python components for the ddt package.
 Summary: python3 components for the ddt package.
 Group: Default
 Requires: python3-core
+Provides: pypi(ddt)
 
 %description python3
 python3 components for the ddt package.
@@ -55,20 +52,29 @@ python3 components for the ddt package.
 
 %prep
 %setup -q -n ddt-1.2.0
+cd %{_builddir}/ddt-1.2.0
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
-export LANG=C
-export SOURCE_DATE_EPOCH=1532217305
-python3 setup.py build -b py3
+export LANG=C.UTF-8
+export SOURCE_DATE_EPOCH=1582916075
+# -Werror is for werrorists
+export GCC_IGNORE_WERROR=1
+export CFLAGS="$CFLAGS -fno-lto "
+export FCFLAGS="$CFLAGS -fno-lto "
+export FFLAGS="$CFLAGS -fno-lto "
+export CXXFLAGS="$CXXFLAGS -fno-lto "
+export MAKEFLAGS=%{?_smp_mflags}
+python3 setup.py build
 
 %install
+export MAKEFLAGS=%{?_smp_mflags}
 rm -rf %{buildroot}
-mkdir -p %{buildroot}/usr/share/doc/ddt
-cp LICENSE.md %{buildroot}/usr/share/doc/ddt/LICENSE.md
-python3 -tt setup.py build -b py3 install --root=%{buildroot}
+mkdir -p %{buildroot}/usr/share/package-licenses/ddt
+cp %{_builddir}/ddt-1.2.0/LICENSE.md %{buildroot}/usr/share/package-licenses/ddt/30ab786d0202a61aa52d094bc66753260a292b00
+python3 -tt setup.py build  install --root=%{buildroot}
 echo ----[ mark ]----
 cat %{buildroot}/usr/lib/python3*/site-packages/*/requires.txt || :
 echo ----[ mark ]----
@@ -77,8 +83,8 @@ echo ----[ mark ]----
 %defattr(-,root,root,-)
 
 %files license
-%defattr(-,root,root,-)
-/usr/share/doc/ddt/LICENSE.md
+%defattr(0644,root,root,0755)
+/usr/share/package-licenses/ddt/30ab786d0202a61aa52d094bc66753260a292b00
 
 %files python
 %defattr(-,root,root,-)

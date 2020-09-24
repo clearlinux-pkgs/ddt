@@ -4,7 +4,7 @@
 #
 Name     : ddt
 Version  : 1.2.0
-Release  : 26
+Release  : 27
 URL      : http://pypi.debian.net/ddt/ddt-1.2.0.tar.gz
 Source0  : http://pypi.debian.net/ddt/ddt-1.2.0.tar.gz
 Summary  : platform-agnostic video game programming tools
